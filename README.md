@@ -2,7 +2,7 @@
 
 ## Dev Setup
 
-1\. Clone this repo
+1\. Clone this repo & `cd` into root directory
 
 2\. Ensure `nvm` is installed, and the correct version of nodejs used
 
@@ -19,14 +19,15 @@ nvm use
 npm install
 ```
 
-4\. Set the proper values in `.env` 
+4\. Create `.env` file in root directory
 
 ```bash
-API_URL=https://api-ssl.bitly.com
-ACCESS_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+echo "API_URL=https://api-ssl.bitly.com\nACCESS_TOKEN=xxxxxxxxxxxxxxx" > .env
 ```
 
-5\. Run the tests
+5\. Paste your valid API [ACCESS_TOKEN](https://app.bitly.com/settings/api) in `.env` file
+
+6\. Run the tests
 
 ```bash
 npx playwright test
