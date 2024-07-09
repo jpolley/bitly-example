@@ -1,0 +1,6 @@
+services:
+  playwright-tests:
+    build: .
+    volumes:
+      - .:/usr/src/app
+    command: npx playwright test
