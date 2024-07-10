@@ -31,6 +31,7 @@ nvm use
 rm -r node_modules
 nvm use
 npm install
+npx playwright install
 ```
 
 6\. Run the tests
