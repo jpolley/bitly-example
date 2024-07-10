@@ -12,7 +12,7 @@ export default defineConfig<APIRequestOptions>({
   workers: process.env.CI ? 1 : undefined,
   reporter: process.env.CI ? [["github"], ["list"], ["html"]] : [["list"], ["html"]],
   use: {
-    // baseURL: 'https://app.bitly.com',
+    baseURL: 'https://app.bitly.com',
     apiURL: process.env.API_URL + "/v4",
     extraHTTPHeaders: {
       "Content-Type": "application/json",
@@ -24,6 +24,18 @@ export default defineConfig<APIRequestOptions>({
     {
       name: "api",
       testMatch: /.*(api).*.ts/,
+    },
+    {
+      name: "setup",
+      testMatch: /.*\.setup\.ts/,
+    },
+    {
+      name: "ui",
+      testMatch: /.*(ui).*.ts/,
+      dependencies: ["setup"],
+      use: {
+        storageState: ".auth/user.json",
+      },
     },
   ],
 });

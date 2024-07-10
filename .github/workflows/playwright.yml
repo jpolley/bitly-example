@@ -9,8 +9,11 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     env:
-      API_URL: ${{ secrets.API_URL }}
       ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      ACCOUNT_ID: ${{ secrets.ACCOUNT_ID }}
+      API_URL: ${{ secrets.API_URL }}
+      USER_EMAIL: ${{ secrets.USER_EMAIL }}
+      USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
