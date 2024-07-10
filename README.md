@@ -34,13 +34,14 @@ npm install
 npx playwright install
 ```
 
-6\. Run the tests
+6\. Run the tests & view report
 
 ```bash
 npx playwright test
+npx playwright show-report
 ```
 
-7\. Run the tests in ✨UI Mode✨ for a better experience. You can walk through each step of the test and see each request that was made. It's pretty neat for reviewing the API request, response, & body.
+7\. Optionally, you can run the tests in ✨UI Mode✨ to dig a little depper. You can you explore, run and debug tests. It's pretty neat for reviewing the API request, response, & body.
 
 ```bash
 npx playwright test --ui
