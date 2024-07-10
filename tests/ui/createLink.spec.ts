@@ -33,43 +33,37 @@ test.describe("User creates new Link", async () => {
     expect(await linkDetailsPage.linkTitle()).toContain(title);
   });
 
-  test("without a title", async ({ page }) => {
-    const destinationUrl = "https://pokemongolive.com";
+  test("using autobranded domain", async ({ page }) => {
+    const destinationUrl = "https://apple.com";
 
     const homePage = new HomePage(page);
     await homePage.goto();
     await homePage.clickCreateNewLink();
 
     const createLinkPage = new CreateLinkPage(page);
+    await createLinkPage.inputDestinationUrl(destinationUrl);
+    await createLinkPage.destinationUrl.press("Tab");
+
+    expect(await createLinkPage.autobrandMessage.innerText()).toContain(
+      "The destination URL points to an autobranded domain and cannot be customized."
+    );
+  });
+
+  test("using invalid url", async ({ page }) => {
+    const destinationUrl = "blah";
+
+    const homePage = new HomePage(page);
+    await homePage.goto();
+    await homePage.clickCreateNewLink();
+
+    const createLinkPage = new CreateLinkPage(page);
+
     await createLinkPage.createNewLink({
       destinationUrl: destinationUrl,
     });
 
-    const linkDetailsPage = new LinkDetailsPage(page);
-    linkId = await linkDetailsPage.linkId();
-
-    expect(await linkDetailsPage.successMessage()).toContain("Successfully created.");
-    expect(await linkDetailsPage.destinationUrl()).toContain(destinationUrl);
-    expect(await linkDetailsPage.linkTitle()).toContain("pokemongolive.com – untitled");
-  });
-
-  test("press Enter to quick create", async ({ page }) => {
-    const destinationUrl = "https://peoplefirstjobs.com";
-
-    const homePage = new HomePage(page);
-    await homePage.goto();
-    await homePage.clickCreateNewLink();
-
-    const createLinkPage = new CreateLinkPage(page);
-
-    await createLinkPage.inputDestinationUrl(destinationUrl);
-    await createLinkPage.destinationUrl.press("Enter");
-
-    const linkDetailsPage = new LinkDetailsPage(page);
-    linkId = await linkDetailsPage.linkId();
-
-    expect(await linkDetailsPage.successMessage()).toContain("Successfully created.");
-    expect(await linkDetailsPage.destinationUrl()).toContain(destinationUrl);
-    expect(await linkDetailsPage.linkTitle()).toContain("peoplefirstjobs.com – untitled");
+    expect(await createLinkPage.errorMessage.innerText()).toContain(
+      `We'll need a valid URL, like "yourbrnd.co/niceurl"`
+    );
   });
 });

@@ -9,6 +9,8 @@ export class CreateLinkPage {
   readonly destinationUrl = this.page.locator("#destination-url");
   readonly title = this.page.locator("#title");
   readonly createLink = this.page.locator("#create-link-cta");
+  readonly autobrandMessage = this.page.locator(".autobrand-message");
+  readonly errorMessage = this.page.locator(".orb-error-label");
 
   async goto() {
     const accountId = process.env.ACCOUNT_ID ?? "";
