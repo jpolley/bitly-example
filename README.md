@@ -1,4 +1,4 @@
-# Bitly example tests using Playwright
+# Bitly example tests using Playwright ![workflow](https://github.com/jpolley/bitly-example/actions/workflows/playwright.yml/badge.svg)
 
 This project uses Typescript and Playwright to provide some test coverage for the bitlinks API and some checks on the web app https://app.bitly.com
 
