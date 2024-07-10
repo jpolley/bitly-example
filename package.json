@@ -2,7 +2,11 @@
   "name": "bitly-example",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "npx playwright test",
+    "test-api": "npx playwright test --project=api",
+    "test-ui": "npx playwright test --project=ui"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
