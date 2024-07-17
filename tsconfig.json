@@ -4,8 +4,8 @@
     "esModuleInterop": true,
     "paths": {
       "@fixtures/*": ["lib/fixtures/*"],
-      "@helpers": ["lib/helpers.ts"],
-      "@pages": ["lib/pages.ts"]
+      "@helpers": ["lib/helpers"],
+      "@pages": ["lib/pages"]
     }
   }
 }

@@ -1,10 +1,10 @@
 import { test as base } from "@playwright/test";
 
-export * from "./pages/login.page";
-export * from "./pages/home.page";
-export * from "./pages/links/links.page";
-export * from "./pages/links/createLink.page";
-export * from "./pages/links/details.page";
+export * from "./login.page";
+export * from "./home.page";
+export * from "./links/links.page";
+export * from "./links/createLink.page";
+export * from "./links/details.page";
 
 export type TestOptions = {
   apiURL: string;
