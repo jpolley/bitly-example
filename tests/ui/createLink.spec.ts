@@ -2,12 +2,13 @@ import { test, expect } from "@playwright/test";
 import { CreateLinkPage, HomePage, LinkDetailsPage } from "@pages";
 import { deleteBitlink } from "@helpers";
 
-let linkId: string = "";
-
 test.describe("User creates new Link", async () => {
+  let linkId: string;
+
   test.afterEach(async () => {
     if (linkId) {
       await deleteBitlink(linkId);
+      linkId = null;
     }
   });
 
