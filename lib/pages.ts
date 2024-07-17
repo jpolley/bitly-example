@@ -5,6 +5,7 @@ export * from "./pages/home.page";
 export * from "./pages/links/links.page";
 export * from "./pages/links/createLink.page";
 export * from "./pages/links/details.page";
+export * from "./pageFactory";
 
 export type TestOptions = {
   apiURL: string;

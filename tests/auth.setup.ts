@@ -1,15 +1,21 @@
 import { test as setup, expect } from "@playwright/test";
-import { LoginPage, HomePage } from "@pages";
+import { createPageFactory, PageFactory } from "@pages";
 
 const authFile = ".auth/user.json";
 
-setup("authenticate", async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  await loginPage.goto();
-  await loginPage.loginWithValidCredentials();
+let $p: PageFactory; // TODO: Inject via fixture?
 
-  const homePage = new HomePage(page);
-  expect(await homePage.navLink.innerText()).toContain("Links");
+setup("authenticate", async ({ page }) => {
+  $p = createPageFactory(page);
+
+  await $p.withLoginPage(async (p) => {
+    await p.goto();
+    await p.loginWithValidCredentials();
+  });
+
+  await $p.withHomePage(async (p) => {
+    expect(await p.navLink.innerText()).toContain("Links");
+  });
 
   await page.context().storageState({ path: authFile });
 });

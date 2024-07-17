@@ -1,69 +1,78 @@
 import { test, expect } from "@playwright/test";
-import { CreateLinkPage, HomePage, LinkDetailsPage } from "@pages";
+import { createPageFactory, PageFactory } from "@pages";
 import { deleteBitlink } from "@helpers";
 
 let linkId: string = "";
 
 test.describe("User creates new Link", async () => {
+  let $p: PageFactory; // TODO: Inject via fixture?
+
+  test.beforeEach(async ({ page }) => {
+    $p = createPageFactory(page);
+  });
+
   test.afterEach(async () => {
     if (linkId) {
       await deleteBitlink(linkId);
     }
   });
 
-  test("using url and title", async ({ page }) => {
+  test("using url and title", async () => {
     const destinationUrl = "https://wildbit.com";
     const title = "Wildbit: Building a people-first business";
 
-    const homePage = new HomePage(page);
-    await homePage.goto();
-    await homePage.clickCreateNewLink();
-
-    const createLinkPage = new CreateLinkPage(page);
-    await createLinkPage.createNewLink({
-      destinationUrl: destinationUrl,
-      title: title,
+    await $p.withHomePage(async (p) => {
+      p.goto();
+      p.clickCreateNewLink();
     });
 
-    const linkDetailsPage = new LinkDetailsPage(page);
-    linkId = await linkDetailsPage.linkId();
+    await $p.withCreateLinkPage(async (p) => {
+      p.createNewLink({
+        destinationUrl: destinationUrl,
+        title: title,
+      });
+    });
 
-    expect(await linkDetailsPage.successMessage()).toContain("Successfully created.");
-    expect(await linkDetailsPage.destinationUrl()).toContain(destinationUrl);
-    expect(await linkDetailsPage.linkTitle()).toContain(title);
+    await $p.withLinkDetailsPage(async (p) => {
+      linkId = await p.linkId();
+      expect(await p.successMessage()).toContain("Successfully created.");
+      expect(await p.destinationUrl()).toContain(destinationUrl);
+      expect(await p.linkTitle()).toContain(title);
+    });
   });
 
-  test("using autobranded domain", async ({ page }) => {
+  test("using autobranded domain", async () => {
     const destinationUrl = "https://apple.com";
 
-    const homePage = new HomePage(page);
-    await homePage.goto();
-    await homePage.clickCreateNewLink();
-
-    const createLinkPage = new CreateLinkPage(page);
-    await createLinkPage.inputDestinationUrl(destinationUrl);
-    await createLinkPage.destinationUrl.press("Tab");
-
-    expect(await createLinkPage.autobrandMessage.innerText()).toContain(
-      "The destination URL points to an autobranded domain and cannot be customized."
-    );
-  });
-
-  test("using invalid url", async ({ page }) => {
-    const destinationUrl = "blah";
-
-    const homePage = new HomePage(page);
-    await homePage.goto();
-    await homePage.clickCreateNewLink();
-
-    const createLinkPage = new CreateLinkPage(page);
-
-    await createLinkPage.createNewLink({
-      destinationUrl: destinationUrl,
+    await $p.withHomePage(async (p) => {
+      p.goto();
+      p.clickCreateNewLink();
     });
 
-    expect(await createLinkPage.errorMessage.innerText()).toContain(
-      `We'll need a valid URL, like "yourbrnd.co/niceurl"`
-    );
+    await $p.withCreateLinkPage(async (p) => {
+      await p.inputDestinationUrl(destinationUrl);
+      await p.destinationUrl.press("Tab");
+
+      expect(await p.autobrandMessage.innerText()).toContain(
+        "The destination URL points to an autobranded domain and cannot be customized."
+      );
+    });
+  });
+
+  test("using invalid url", async () => {
+    const destinationUrl = "blah";
+
+    await $p.withHomePage(async (p) => {
+      p.goto();
+      p.clickCreateNewLink();
+    });
+
+    await $p.withCreateLinkPage(async (p) => {
+      p.createNewLink({
+        destinationUrl: destinationUrl,
+      });
+
+      expect(await p.errorMessage.innerText()).toContain(`We'll need a valid URL, like "yourbrnd.co/niceurl"`);
+    });
   });
 });
