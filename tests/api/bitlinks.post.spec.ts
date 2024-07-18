@@ -2,12 +2,13 @@ import { expect } from "@playwright/test";
 import { test } from "@fixtures/apiRequest";
 import { deleteBitlink } from "@helpers";
 
-let linkId: string = "";
-
 test.describe("Create Bitlink", async () => {
+  let linkId: string;
+
   test.afterEach(async () => {
     if (linkId) {
       await deleteBitlink(linkId);
+      linkId = null;
     }
   });
 

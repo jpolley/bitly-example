@@ -1,6 +1,5 @@
 import { test, expect } from "@playwright/test";
 import { LoginPage, HomePage } from "@pages";
-import { faker } from "@helpers";
 
 test.describe("User logs in to Bitly", async () => {
   test.beforeEach(async ({ page }) => {
@@ -8,11 +7,9 @@ test.describe("User logs in to Bitly", async () => {
   });
 
   test("using invalid credentials ", async ({ page }) => {
-    const email = faker.internet.email();
-
     const loginPage = new LoginPage(page);
     await loginPage.goto();
-    await loginPage.login(email, "INVALID_PASSWORD");
+    await loginPage.login("invalid@example.com", "INVALID_PASSWORD");
 
     await expect(loginPage.invalidCredentialsError).toBeVisible();
   });
