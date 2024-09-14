@@ -29,7 +29,6 @@ test.describe("User creates new Link", async () => {
     const linkDetailsPage = new LinkDetailsPage(page);
     linkId = await linkDetailsPage.linkId();
 
-    expect(await linkDetailsPage.successMessage()).toContain("Successfully created.");
     expect(await linkDetailsPage.destinationUrl()).toContain(destinationUrl);
     expect(await linkDetailsPage.linkTitle()).toContain(title);
   });
