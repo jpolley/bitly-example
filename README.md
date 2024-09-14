@@ -18,20 +18,10 @@ echo "ACCESS_TOKEN=xxxxxxxx\nACCOUNT_ID=Ch3flJJ0gtq\nAPI_URL=https://api-ssl.bit
 - ACCOUNT_ID is the value you see in the URL after you login. For example if the URL is app.bitly.com/Ch3flJJ0gtq/home then update the `.env` file so that ACCOUNT_ID=Ch3flJJ0gtq
 - USER_EMAIL and USER_PASSWORD are credentials used to [Log in](https://bitly.com/a/sign_in)
 
-4\. Ensure [nvm](https://github.com/nvm-sh/nvm) is installed, and the correct version of nodejs used
+2. Install everything by running the setup script:
 
 ```bash
-nvm install # check .nvmrc to see the required version of node
-nvm use
-```
-
-5\. Get the correct nodejs things
-
-```bash
-rm -r node_modules
-nvm use
-npm install
-npx playwright install
+  npm run setup
 ```
 
 6\. Run the tests & view report
