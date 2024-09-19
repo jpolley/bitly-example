@@ -22,7 +22,7 @@
     "prettier": "^3.2.5"
   },
   "dependencies": {
-    "@playwright/test": "^1.44.1",
+    "@playwright/test": "^1.47.1",
     "dotenv": "^16.4.5"
   }
 }
