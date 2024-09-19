@@ -18,20 +18,20 @@ echo "ACCESS_TOKEN=xxxxxxxx\nACCOUNT_ID=Ch3flJJ0gtq\nAPI_URL=https://api-ssl.bit
 - ACCOUNT_ID is the value you see in the URL after you login. For example if the URL is app.bitly.com/Ch3flJJ0gtq/home then update the `.env` file so that ACCOUNT_ID=Ch3flJJ0gtq
 - USER_EMAIL and USER_PASSWORD are credentials used to [Log in](https://bitly.com/a/sign_in)
 
-2. Install everything by running the setup script:
+4\. Install everything by running the setup script:
 
 ```bash
   npm run setup
 ```
 
-6\. Run the tests & view report
+5\. Run the tests & view report
 
 ```bash
 npx playwright test
 npx playwright show-report
 ```
 
-7\. Optionally, you can run the tests in ✨UI Mode✨ to dig a little depper. You can you explore, run and debug tests. It's pretty neat for reviewing the API request, response, & body.
+6\. Optionally, you can run the tests in ✨UI Mode✨ to dig a little depper. You can you explore, run and debug tests. It's pretty neat for reviewing the API request, response, & body.
 
 ```bash
 npx playwright test --ui
@@ -40,7 +40,7 @@ npx playwright test --ui
 Just click the ▶️ play button to kick off the tests:
 ![Click the play button](ui-click-play.jpg)
 
-8\. If you have [Docker](https://docs.docker.com/engine/install/) installed then you can run tests using this command
+7\. If you have [Docker](https://docs.docker.com/engine/install/) installed then you can run tests using this command
 
 ```bash
 docker compose up
