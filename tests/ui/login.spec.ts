@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "@fixtures/base";
 import { LoginPage, HomePage } from "@pages";
 
 test.describe("User logs in to Bitly", async () => {
