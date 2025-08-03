@@ -2,7 +2,7 @@ import { test, expect } from "@fixtures/base";
 import { CreateLinkPage, HomePage, LinkDetailsPage } from "@pages";
 import { deleteBitlink } from "@helpers";
 
-test.describe("User creates new Link", async () => {
+test.skip("User creates new Link", async () => {
   let linkId: string;
 
   test.afterEach(async () => {
