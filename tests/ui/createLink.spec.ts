@@ -1,9 +1,15 @@
 import { test, expect } from "@fixtures/base";
-import { CreateLinkPage, HomePage, LinkDetailsPage } from "@pages";
+import { CreateLinkPage, LinksPage, LinkDetailsPage } from "@pages";
 import { deleteBitlink } from "@helpers";
 
-test.skip("User creates new Link", async () => {
+test.describe("User creates new Link", async () => {
   let linkId: string;
+
+  test.beforeEach(async ({ page }) => {
+    const linksPage = new LinksPage(page);
+    await linksPage.goto();
+    await linksPage.clickCreateLink();
+  });
 
   test.afterEach(async () => {
     if (linkId) {
@@ -15,10 +21,6 @@ test.skip("User creates new Link", async () => {
   test("using url and title", async ({ page }) => {
     const destinationUrl = "https://wildbit.com";
     const title = "Wildbit: Building a people-first business";
-
-    const homePage = new HomePage(page);
-    await homePage.goto();
-    await homePage.clickCreateNewLink();
 
     const createLinkPage = new CreateLinkPage(page);
     await createLinkPage.createNewLink({
@@ -36,10 +38,6 @@ test.skip("User creates new Link", async () => {
   test("using autobranded domain", async ({ page }) => {
     const destinationUrl = "https://apple.com";
 
-    const homePage = new HomePage(page);
-    await homePage.goto();
-    await homePage.clickCreateNewLink();
-
     const createLinkPage = new CreateLinkPage(page);
     await createLinkPage.inputDestinationUrl(destinationUrl);
     await createLinkPage.destinationUrl.press("Tab");
@@ -52,12 +50,7 @@ test.skip("User creates new Link", async () => {
   test("using invalid url", async ({ page }) => {
     const destinationUrl = "blah";
 
-    const homePage = new HomePage(page);
-    await homePage.goto();
-    await homePage.clickCreateNewLink();
-
     const createLinkPage = new CreateLinkPage(page);
-
     await createLinkPage.createNewLink({
       destinationUrl: destinationUrl,
     });

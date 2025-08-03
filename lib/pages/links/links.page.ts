@@ -1,15 +1,15 @@
 import { Page } from "@playwright/test";
 
 export class LinksPage {
-  readonly createNew = this.page.getByText("Create new");
+  readonly createLink = this.page.getByRole("button", { name: "Create link" });
 
   async goto() {
     const accountId = process.env.ACCOUNT_ID ?? "";
     await this.page.goto(`/${accountId}/links`);
   }
 
-  async clickCreateServer() {
-    await this.createNew.click();
+  async clickCreateLink() {
+    await this.createLink.click();
   }
 
   constructor(private readonly page: Page) {}
