@@ -20,7 +20,7 @@ export default defineConfig<APIRequestOptions>({
     },
     video: "on",
     screenshot: "on",
-    trace: "on-first-retry",
+    trace: "retain-on-failure",
   },
   projects: [
     {

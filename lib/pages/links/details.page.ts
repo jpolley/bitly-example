@@ -10,7 +10,6 @@ export class LinkDetailsPage {
     return await this.destinationUrlElement.innerText();
   }
 
-
   async linkId(): Promise<string> {
     return await this.linkIdElement.innerText();
   }

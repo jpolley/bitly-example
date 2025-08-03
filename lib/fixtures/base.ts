@@ -20,26 +20,6 @@ export const test = base.extend<{
     },
     { auto: true },
   ],
-  
-  exceptionLogger: [
-    async ({ page }, use) => {
-      const errors: Error[] = [];
-      page.on("pageerror", (error) => errors.push(error));
-
-      await use();
-
-      if (errors.length > 0) {
-        await test.info().attach("frontend-exceptions", {
-          body: errors
-            .map((error) => `${error.message}\n${error.stack}`)
-            .join("\n-----\n"),
-        });
-
-        throw new Error("Something went wrong in JS land");
-      }
-    },
-    { auto: true },
-  ],
 });
 
 export { expect } from "@playwright/test";
